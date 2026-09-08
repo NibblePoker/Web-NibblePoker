@@ -1,0 +1,7 @@
+PEArch.exe [/?] [/E|/AsError] [/H|/AsHex] [/F|/FullText] <Fichier>
+
+Options:
+  /?             Affiche ce texte d'aide.
+  /E, /AsError   Retourne le code de l'architecture comme code d'erreur.
+  /H, /AsHex     Affiche le code de l'architecture en héxadécimal.
+  /F, /FullText  Affiche une description plus longue sur l'architecture.

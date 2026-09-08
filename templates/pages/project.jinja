@@ -25,6 +25,17 @@ Notable globals:
     <!-- TODO -->
 {% endblock %}
 
+{% block main_content %}
+    {% with heading_inner_html=l10n("meta.title", project_id, page_lang),
+            heading_level=2 %}
+        {% include 'elements/heading.jinja' %}
+    {% endwith %}
+
+    <np-content-spacer>
+        {% block project_content %}{% endblock %}
+    </np-content-spacer>
+{% endblock %}
+
 {% block extra_scripts %}
     <script src="/resources/NibblePoker/js/nibblepoker-default.min.js"></script>
 {% endblock %}

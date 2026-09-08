@@ -2,17 +2,24 @@
 
 {% extends "pages/project.jinja" %}
 
-{% block main_content %}
+{% block project_content %}
     <!-- Introduction -->
     <np-section>
         {% with heading_inner_html=l10n("intro.title", project_id, page_lang),
                 heading_level=3 %}
             {% include 'elements/heading.jinja' %}
         {% endwith %}
+
         <np-content-spacer>
-            {% with paragraph_inner_html=l10n("intro.text.p1.l1", project_id, page_lang) %}{% include 'elements/paragraph.jinja' %}{% endwith %}
-            {% with paragraph_inner_html=l10n("intro.text.p2.l1", project_id, page_lang) %}{% include 'elements/paragraph.jinja' %}{% endwith %}
-            {% with paragraph_inner_html=l10n("intro.text.p3.l1", project_id, page_lang) %}{% include 'elements/paragraph.jinja' %}{% endwith %}
+            <np-paragraph>
+                {{ l10n("intro.text.p1.l1", project_id, page_lang) }}
+            </np-paragraph>
+            <np-paragraph>
+                {{ l10n("intro.text.p2.l1", project_id, page_lang) }}
+            </np-paragraph>
+            <np-paragraph>
+                {{ l10n("intro.text.p3.l1", project_id, page_lang) }}
+            </np-paragraph>
         </np-content-spacer>
     </np-section>
 
@@ -22,12 +29,13 @@
                 heading_level=3 %}
             {% include 'elements/heading.jinja' %}
         {% endwith %}
+
         <np-content-spacer>
-            {% with paragraph_inner_html=l10n("usage.text.p1.l1", project_id, page_lang) + "<br/>" +
-                                         l10n("usage.text.p1.l2", project_id, page_lang) %}
-                {% include 'elements/paragraph.jinja' %}
-            {% endwith %}
-            {% with code_source="pearch-usage.txt" %}
+            <np-paragraph>
+                {{ l10n("usage.text.p1.l1", project_id, page_lang) }}<br/>
+                {{ l10n("usage.text.p1.l2", project_id, page_lang) }}
+            </np-paragraph>
+            {% with code_source="pearch-usage-"+page_lang+".txt" %}
                 {% include 'elements/code-block.jinja' %}
             {% endwith %}
 
@@ -180,7 +188,9 @@
             {% include 'elements/heading.jinja' %}
         {% endwith %}
         <np-content-spacer>
-            {% with paragraph_inner_html=l10n("license.text", project_id, page_lang) %}{% include 'elements/paragraph.jinja' %}{% endwith %}
+            <np-paragraph>
+                {{ l10n("license.text", project_id, page_lang) }}
+            </np-paragraph>
         </np-content-spacer>
     </np-section>
 
@@ -191,15 +201,12 @@
             {% include 'elements/heading.jinja' %}
         {% endwith %}
         <np-content-spacer>
-            {% with paragraph_inner_html="<ul class='ml-s l-bullets l-bullet-inside'>" +
-                                         "<li><a href=\"https://github.com/aziascreations/PEArch\">" +
-                                         l10n("github", "commons", user_lang) + "</a></li>" +
-                                         "<li><a href=\"https://git.nibblepoker.lu/aziascreations/PEArch\">" +
-                                         l10n("gitea", "commons", user_lang) + "</a></li>" +
-                                         "</ul>" %}
-                {% include 'elements/paragraph.jinja' %}
-            {% endwith %}
+            <np-paragraph>
+                <np-ul>
+                    <li><a href="https://github.com/aziascreations/PEArch">{{ l10n("github", "commons", user_lang) }}</a></li>
+                    <li><a href="https://git.nibblepoker.lu/aziascreations/PEArch">{{ l10n("gitea", "commons", user_lang) }}</a></li>
+                </np-ul>
+            </np-paragraph>
         </np-content-spacer>
     </np-section>
-
 {% endblock %}

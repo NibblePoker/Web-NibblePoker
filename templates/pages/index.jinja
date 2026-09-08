@@ -24,8 +24,12 @@
         {% endwith %}
 
         <np-content-spacer>
-            {% with paragraph_inner_html=l10n("intro.text.1", "home", page_lang) %}{% include 'elements/paragraph.jinja' %}{% endwith %}
-            {% with paragraph_inner_html=l10n("intro.text.2", "home", page_lang) %}{% include 'elements/paragraph.jinja' %}{% endwith %}
+            <np-paragraph>
+                {{ l10n("intro.text.1", "home", page_lang) }}
+            </np-paragraph>
+            <np-paragraph>
+                {{ l10n("intro.text.2", "home", page_lang) }}
+            </np-paragraph>
         </np-content-spacer>
     </np-section>
 
