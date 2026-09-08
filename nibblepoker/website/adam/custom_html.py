@@ -15,6 +15,12 @@ __CUSTOM_TAGS = {
 
         "<np-details-content>": "<div class='bt ox-auto'>",
         "</np-details-content>": "</div>",
+
+        "<np-paragraph>": "<p class='mt-xs'>",
+        "</np-paragraph>": "</p>",
+
+        "<np-ul>": "<ul class='ml-s l-bullets l-bullet-inside'>",
+        "</np-ul>": "</ul>",
     }
 }
 
