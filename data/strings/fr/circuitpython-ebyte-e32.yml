@@ -1,55 +1,74 @@
 # FR - Project - CircuitPython EByte E32
 
-meta.title: CircuitPython - Driver Ebyte E32
-meta.description: Driver CircuitPython pour les modules sérial LoRa E32 de Ebyte tournant
-  sous les chipset SX1278/SX1276.
-article.subtitle: <a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32"><i
-  class="fab fa-github"></i> Voir sur GitHub</a>
-intro.title: Introduction
-intro.p1: Ce projet est un driver qui vous permet d'interagir avec la série de modules
-  LoRa E32 d'Ebyte dans CircuitPython.
-features.title: Fonctionnalités
-features.1: Prend en charge tous les modules E32 UART standards.
-features.2: 'Support supplémentaire en fonction de la fréquence et de la puissance
-  :'
-features.2.1: Constantes pour la puissance d'émission.
-features.2.2: "<s>Calculatrices de taille de paquet maximale.</s> (À FAIRE)"
-features.2.3: Entièrement facultatif via des modules séparés.
-features.3: 'Versions minifiées pour les appareils avec un espace de stockage réduit
-  :'
-features.3.1: ~75 % plus petites pour les fichiers <code class="code">.py</code>
-features.3.2: ~5 % plus petites pour les fichiers <code class="code">.mpy</code>
-limitations.title: Limitations
-limitations.1: 'Aucune limitation de taille de paquet intégrée :'
-limitations.1.1: Varie grandement entre les fréquences et les paramètres d'utilisation.
-limitations.1.2: Pas suffisamment documentée dans les spécifications techniques de
-  LoRA et LoRaWAN.
-limitations.2: 'Aucun protocole intégré :'
-limitations.2.1: Tous les paquets LoRa sont collés les uns aux autres dans un buffer
-  lors de la réception.
-limitations.2.2: Aucun support pour LoRaWAN. (Limitation du module)
-limitations.3: 'Support avancé manquant pour certains modules :'
-limitations.3.1: Modules avec les préfixes <code class="code">170</code>, <code class="code">400</code>
-  ou <code class="code">900</code>. (S'améliorera avec le temps)
-doc.title: Documentation
-doc.p1: Toute la documentation de ce projet est disponible sur Github.<br>Les fiches
-  techniques de tous les modules E32 peuvent également être trouvées sur "<a href="https://files.nibblepoker.lu/datasheets/ebyte/e32/">files.nibblepoker.lu</a>".
-usage.title: Utilisation
-usage.p1: De nombreux exemples d'utilisation peuvent être trouvés sur GitHub dans
-  le sous-dossier "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/tree/master/examples">examples/</a>"
-  du projet.<br>Les exemples couvrent tous les modes de fonctionnement des modules,
-  à l'exception des modes <i>wake-up</i> et <i>power-saving</i>.
-usage.p2: Cependant, si vous souhaitez avoir un aperçu rapide, je vous invite à lire
-  le code ci-dessous extrait de l'exemple "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/blob/master/examples/transmit_fixed/sender_unicast.py">transmit_fixed/sender_unicast.py</a>"
-  qui est utilisé pour envoyer un message en mode fixe à un récipient spécifique.
-demo.title: 'Essais&nbsp;<abbr title="dans la vraie vie">IRL</abbr> '
-demo.p1: Des tests ont été effectués avec cette librairie en utilisant un module <i>E32
-  443T20D</i> émettant à <i>10 mW / 10 dBm</i> et <i>2,4 kbps</i>.
-demo.p3: La portée maximale observée était d'environ <i>1,7 km / 1,05 mi</i> avec
-  une ligne de visée dégagée (<abbr title="Line-of-Sight">LOS</abbr>).
-demo.p4: Elle aurait probablement pu être plus grande si nous n'avions pas épuisé
-  nos réserves de bières sur la première partie de la marche, et si nous étions prêts
-  à marcher plus de 8 km jusqu''au prochain point dégagé.
+meta:
+  title: CircuitPython - Driver Ebyte E32
+  description: Driver CircuitPython pour les modules sérial LoRa E32 de Ebyte tournant
+    sous les chipset SX1278/SX1276.
+
+article:
+  subtitle: <a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32"><i
+    class="fab fa-github"></i> Voir sur GitHub</a>
+
+intro:
+  title: Introduction
+  text:
+    p1: Ce projet est un driver qui vous permet d'interagir avec la série de modules
+      LoRa E32 d'Ebyte dans CircuitPython.
+
+features:
+  title: Fonctionnalités
+  text:
+    1: Prend en charge tous les modules E32 UART standards.
+    2: 'Support supplémentaire en fonction de la fréquence et de la puissance :'
+    2.1: Constantes pour la puissance d'émission.
+    2.2: "<s>Calculatrices de taille de paquet maximale.</s> (À FAIRE)"
+    2.3: Entièrement facultatif via des modules séparés.
+    3: 'Versions minifiées pour les appareils avec un espace de stockage réduit :'
+    3.1: ~75 % plus petites pour les fichiers <code class="code">.py</code>
+    3.2: ~5 % plus petites pour les fichiers <code class="code">.mpy</code>
+
+limitations:
+  title: Limitations
+  text:
+    1: 'Aucune limitation de taille de paquet intégrée :'
+    1.1: Varie grandement entre les fréquences et les paramètres d'utilisation.
+    1.2: Pas suffisamment documentée dans les spécifications techniques de LoRA et LoRaWAN.
+    2: 'Aucun protocole intégré :'
+    2.1: Tous les paquets LoRa sont collés les uns aux autres dans un buffer lors de la réception.
+    2.2: Aucun support pour LoRaWAN. (Limitation du module)
+    3: 'Support avancé manquant pour certains modules :'
+    3.1: Modules avec les préfixes <code class="code">170</code>, <code class="code">400</code> ou <code class="code">900</code>. (S'améliorera avec le temps)
+
+doc:
+  title: Documentation
+  text:
+    p1: Toute la documentation de ce projet est disponible sur Github.<br>Les fiches
+      techniques de tous les modules E32 peuvent également être trouvées sur "<a href="https://files.nibblepoker.lu/datasheets/ebyte/e32/">files.nibblepoker.lu</a>".
+
+usage:
+  title: Utilisation
+  text:
+    p1: De nombreux exemples d'utilisation peuvent être trouvés sur GitHub dans
+      le sous-dossier "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/tree/master/examples">examples/</a>"
+      du projet.<br>Les exemples couvrent tous les modes de fonctionnement des modules,
+      à l'exception des modes <i>wake-up</i> et <i>power-saving</i>.
+    p2: Cependant, si vous souhaitez avoir un aperçu rapide, je vous invite à lire
+      le code ci-dessous extrait de l'exemple "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/blob/master/examples/transmit_fixed/sender_unicast.py">transmit_fixed/sender_unicast.py</a>"
+      qui est utilisé pour envoyer un message en mode fixe à un récipient spécifique.
+
+demo:
+  title: 'Essais&nbsp;<abbr title="dans la vraie vie">IRL</abbr> '
+  text:
+    p1: Des tests ont été effectués avec cette librairie en utilisant un module <i>E32
+      443T20D</i> émettant à <i>10 mW / 10 dBm</i> et <i>2,4 kbps</i>.
+    p3: La portée maximale observée était d'environ <i>1,7 km / 1,05 mi</i> avec
+      une ligne de visée dégagée (<abbr title="Line-of-Sight">LOS</abbr>).
+    p4: Elle aurait probablement pu être plus grande si nous n'avions pas épuisé
+      nos réserves de bières sur la première partie de la marche, et si nous étions prêts
+      à marcher plus de 8 km jusqu''au prochain point dégagé.
+
 downloads.title: Télechargements
+
 license.title: Licence
+
 links.title: Liens

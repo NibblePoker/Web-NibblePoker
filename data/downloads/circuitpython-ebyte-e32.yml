@@ -1,0 +1,29 @@
+downloads:
+  - version: "0.8.0"
+    title: ""
+    url_prefix: "https://files.nibblepoker.com/downloads/CircuitPython-Ebyte-E32/0.8.0/"
+    columns: minified-python
+    artifacts:
+      - nibblepoker-circuitpython-e32-driver_v0.8.0_py.zip
+      - nibblepoker-circuitpython-e32-driver_v0.8.0_py-min.zip
+  - version: "0.7.0"
+    title: ""
+    url_prefix: "https://files.nibblepoker.com/downloads/CircuitPython-Ebyte-E32/0.7.0/"
+    columns: minified-python
+    artifacts:
+      - nibblepoker-circuitpython-e32-driver_v0.7.0_py.zip
+      - nibblepoker-circuitpython-e32-driver_v0.7.0_py-min.zip
+  - version: "0.6.0"
+    title: ""
+    url_prefix: "https://files.nibblepoker.com/downloads/CircuitPython-Ebyte-E32/0.6.0/"
+    columns: minified-python
+    artifacts:
+      - nibblepoker-circuitpython-e32-driver_0.6.0_py.zip
+      - nibblepoker-circuitpython-e32-driver_0.6.0_py-min.zip
+  - version: "0.4.0"
+    title: ""
+    url_prefix: "https://files.nibblepoker.com/downloads/CircuitPython-Ebyte-E32/0.4.0/"
+    columns: minified-python
+    artifacts:
+      - nibblepoker-circuitpython-e32-driver_0.4.0_py.zip
+      - nibblepoker-circuitpython-e32-driver_0.4.0_py-min.zip

@@ -111,6 +111,13 @@ if __name__ == "__main__":
     # Release data
     release_repo = ReleaseVersionRepository()
     release_repo.load_folder("./data/downloads")
+    for releases_key in release_repo.get_all_releases().keys():
+        print(f"> {releases_key}")
+        for release_data in release_repo.get_releases_for(releases_key):
+            print(release_data)
+            print(group_single_release(release_data))
+
+
 
     def _localize(strings_key: str, strings_domain: Optional[str], language: str, args: list[str] = None) -> str:
         global localizer

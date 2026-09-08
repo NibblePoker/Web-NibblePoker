@@ -1,53 +1,80 @@
 # EN - Project - CircuitPython EByte E32
 
-meta.title: CircuitPython - Ebyte E32 Driver
-meta.description: CircuitPython driver for Ebyte's E32 UART LoRa modules that use
-  the SX1278/SX1276 chipsets.
-article.subtitle: <a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32"><i
-  class="fab fa-github"></i> View on GitHub</a>
-intro.title: Introduction
-intro.p1: This project is a simple driver for CircuitPython that allows you to easily
-  interact with Ebyte's E32 series of LoRa modules.
-features.title: Features
-features.1: Supports all standard E32 UART modules.
-features.2: 'Extra support on a per-frequency and per-power basis:'
-features.2.1: More descriptive constants for TX power.
-features.2.2: "<s>Maximum packet size calculators.</s> (TODO)"
-features.2.3: Entirely optional via separate modules.
-features.3: 'Minified versions for devices with tiny storage space:'
-features.3.1: ~75% smaller for <code class="code">.py</code> files
-features.3.2: ~5% smaller for <code class="code">.mpy</code> files <i>(Due to shortened
-  local variables, mostly)</i>
-limitations.title: Limitations
-limitations.1: 'No built-in packet size limit:'
-limitations.1.1: Wildly different between frequencies & operating parameters.
-limitations.1.2: Not documented clearly enough in LoRA and LoRaWAN documentation.
-limitations.2: 'No built-in protocol:'
-limitations.2.1: All LoRa packets are glued back-to-back when received.
-limitations.2.2: No LoraWAN support
-limitations.3: 'Missing support for some modules:'
-limitations.3.1: Modules with <code class="code">170</code>, <code class="code">400</code>
-  and <code class="code">900</code> prefix. (Will improve overtime)
-doc.title: Documentation
-doc.p1: The entire documentation for this project can be found on Github.<br>The datasheets
-  for all the E32 modules can also be found on "<a href="https://files.nibblepoker.lu/datasheets/ebyte/e32/">files.nibblepoker.lu</a>".
-usage.title: Usage
-usage.p1: Many usage examples can be found on GitHub in the "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/tree/master/examples">examples/</a>"
-  subfolder.<br>The examples cover all modes of operations for the modules, except
-  for the <i>wake-up</i> and <i>power-saving</i> modes.
-usage.p2: However, if you want to get a feel on how to use it, I invite you to read
-  the code below taken from the "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/blob/master/examples/transmit_fixed/sender_unicast.py">transmit_fixed/sender_unicast.py</a>"
-  example that is used to send a message in fixed mode to a specific device.
-demo.title: <abbr title="In-Real-Life">IRL</abbr>&nbsp;Tests
-demo.p1: Some tests were conducted using this library with an <i>E32 443T20D</i> module
-  transmitting at <i>10 mW / 10dBm</i> and <i>2.4 kbps</i>.
-demo.p2: The transmitting side used a handmade ??? antenna held up ~8-10 m above ground-level,
-  and the receiving one was a basic ??? from a Baofeng radio held up ~2-3 m above
-  the ground with the help of a wooden stick.
-demo.p3: The maximum observed range was around <i>1.7km / 1.05mi</i> with a clear
-  <abbr title="Line-of-Sight">LOS</abbr>.
-demo.p4: It could have probably been bigger if we hadn't ran out of beers and were
-  ready to walk >8km to the next unobstructed point.
-downloads.title: Downloads
-license.title: License
-links.title: Links
+meta:
+  title: CircuitPython - Ebyte E32 Driver
+  description: CircuitPython driver for Ebyte's E32 UART LoRa modules that use
+    the SX1278/SX1276 chipsets.
+
+article:
+  subtitle: <a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32"><i
+    class="fab fa-github"></i> View on GitHub</a>
+
+intro:
+  title: Introduction
+  text:
+    p1: This project is a simple driver for CircuitPython that allows you to easily
+      interact with Ebyte's E32 series of LoRa modules.
+
+features:
+  title: Features
+  text:
+    1: Supports all standard E32 UART modules.
+    2: 'Extra support on a per-frequency and per-power basis:'
+    2.1: More descriptive constants for TX power.
+    2.2: "<s>Maximum packet size calculators.</s> (TODO)"
+    2.3: Entirely optional via separate modules.
+    3: 'Minified versions for devices with tiny storage space:'
+    3.1: ~75% smaller for <code class="code">.py</code> files
+    3.2: ~5% smaller for <code class="code">.mpy</code> files <i>(Due to shortened
+      local variables, mostly)</i>
+
+limitations:
+  title: Limitations
+  text:
+    1: 'No built-in packet size limit:'
+    1.1: Wildly different between frequencies & operating parameters.
+    1.2: Not documented clearly enough in LoRA and LoRaWAN documentation.
+    2: 'No built-in protocol:'
+    2.1: All LoRa packets are glued back-to-back when received.
+    2.2: No LoraWAN support
+    3: 'Missing support for some modules:'
+    3.1: Modules with <code class="code">170</code>, <code class="code">400</code>
+      and <code class="code">900</code> prefix. (Will improve overtime)
+
+doc:
+  title: Documentation
+  text:
+    p1: The entire documentation for this project can be found on Github.<br>The datasheets
+      for all the E32 modules can also be found on "<a href="https://files.nibblepoker.lu/datasheets/ebyte/e32/">files.nibblepoker.lu</a>".
+
+usage:
+  title: Usage
+  text:
+    p1: Many usage examples can be found on GitHub in the "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/tree/master/examples">examples/</a>"
+      subfolder.<br>The examples cover all modes of operations for the modules, except
+      for the <i>wake-up</i> and <i>power-saving</i> modes.
+    p2: However, if you want to get a feel on how to use it, I invite you to read
+      the code below taken from the "<a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32/blob/master/examples/transmit_fixed/sender_unicast.py">transmit_fixed/sender_unicast.py</a>"
+      example that is used to send a message in fixed mode to a specific device.
+
+demo:
+  title: <abbr title="In-Real-Life">IRL</abbr>&nbsp;Tests
+  text:
+    p1: Some tests were conducted using this library with an <i>E32 443T20D</i> module
+      transmitting at <i>10 mW / 10dBm</i> and <i>2.4 kbps</i>.
+    p2: The transmitting side used a handmade ??? antenna held up ~8-10 m above ground-level,
+      and the receiving one was a basic ??? from a Baofeng radio held up ~2-3 m above
+      the ground with the help of a wooden stick.
+    p3: The maximum observed range was around <i>1.7km / 1.05mi</i> with a clear
+      <abbr title="Line-of-Sight">LOS</abbr>.
+    p4: It could have probably been bigger if we hadn't ran out of beers and were
+      ready to walk >8km to the next unobstructed point.
+
+downloads:
+  title: Downloads
+
+license:
+  title: License
+
+links:
+  title: Links

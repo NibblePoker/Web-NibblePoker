@@ -8,18 +8,26 @@ Parameters:
     * heading_icon
     * heading_inner_html
     // * heading_right_html
+    * heading_spacing_class: Optional[str]
 #}
+
+{% if heading_spacing_class is not defined %}
+    {% if heading_level == 3 %}
+        {% set heading_spacing_class="mt-l" %}
+    {% elif heading_level == 4 %}
+        {% set heading_spacing_class="mt-m" %}
+    {% else %}
+        {% set heading_spacing_class="  " %}
+    {% endif %}
+{% endif %}
+{% set heading_spacing_class=" " + heading_spacing_class + " " %}
 
 {% if heading_anchor_id is not none %}
     <a class="bland-link" href="#{{ heading_anchor_id }}"></a>
 {% endif %}
 
 <div class="heading-main p-xs border r-s bkgd-grid
-        {% if heading_level == 3 %}
-            mt-l
-        {% elif heading_level == 4 %}
-            mt-m
-        {% endif %}
+        {{ heading_spacing_class }}
         {{ heading_extra_classes }}
         mt-0-if-first">
 

@@ -1,0 +1,167 @@
+{% set project_id = "circuitpython-ebyte-e32" %}
+
+{% extends "pages/project.jinja" %}
+
+{% block project_content %}
+    <!-- Introduction -->
+    <np-section>
+        {% with heading_inner_html=l10n("intro.title", project_id, page_lang),
+                heading_level=3 %}
+            {% include 'elements/heading.jinja' %}
+        {% endwith %}
+
+        <np-content-spacer>
+            <np-paragraph>
+                {{ l10n("intro.text.p1", project_id, page_lang) }}
+            </np-paragraph>
+        </np-content-spacer>
+    </np-section>
+
+    <div class="grid grid-col-2 grid-gap-l">
+        <div>
+            <!-- Features -->
+            <np-section>
+                {% with heading_inner_html=l10n("features.title", project_id, page_lang),
+                        heading_level=3, heading_spacing_class="mt-m" %}
+                    {% include 'elements/heading.jinja' %}
+                {% endwith %}
+
+                <np-content-spacer>
+                    <np-paragraph>
+                        <np-ul>
+                            <li>{{ l10n("features.text.1", project_id, page_lang) }}</li>
+                            <li>{{ l10n("features.text.2", project_id, page_lang) }}</li>
+                            <np-ul>
+                                <li>{{ l10n("features.text.2.1", project_id, page_lang) }}</li>
+                                <li>{{ l10n("features.text.2.2", project_id, page_lang) }}</li>
+                                <li>{{ l10n("features.text.2.3", project_id, page_lang) }}</li>
+                            </np-ul>
+                            <li>{{ l10n("features.text.3", project_id, page_lang) }}</li>
+                            <np-ul>
+                                <li>{{ l10n("features.text.3.1", project_id, page_lang) }}</li>
+                                <li>{{ l10n("features.text.3.2", project_id, page_lang) }}</li>
+                            </np-ul>
+                        </np-ul>
+                    </np-paragraph>
+                </np-content-spacer>
+            </np-section>
+        </div>
+        <div>
+            <!-- Limitations -->
+            <np-section>
+                {% with heading_inner_html=l10n("limitations.title", project_id, page_lang),
+                        heading_level=3, heading_spacing_class="mt-m" %}
+                    {% include 'elements/heading.jinja' %}
+                {% endwith %}
+
+                <np-content-spacer>
+                    <np-paragraph>
+                        <np-ul>
+                            <li>{{ l10n("limitations.text.1", project_id, page_lang) }}</li>
+                            <np-ul>
+                                <li>{{ l10n("limitations.text.1.1", project_id, page_lang) }}</li>
+                                <li>{{ l10n("limitations.text.1.2", project_id, page_lang) }}</li>
+                            </np-ul>
+                            <li>{{ l10n("limitations.text.2", project_id, page_lang) }}</li>
+                            <np-ul>
+                                <li>{{ l10n("limitations.text.2.1", project_id, page_lang) }}</li>
+                                <li>{{ l10n("limitations.text.2.2", project_id, page_lang) }}</li>
+                            </np-ul>
+                            <li>{{ l10n("limitations.text.3", project_id, page_lang) }}</li>
+                            <np-ul>
+                                <li>{{ l10n("limitations.text.3.1", project_id, page_lang) }}</li>
+                            </np-ul>
+                        </np-ul>
+                    </np-paragraph>
+                </np-content-spacer>
+            </np-section>
+        </div>
+    </div>
+
+    <!-- Documentation -->
+    <np-section>
+        {% with heading_inner_html=l10n("doc.title", project_id, page_lang),
+                heading_level=3 %}
+            {% include 'elements/heading.jinja' %}
+        {% endwith %}
+
+        <np-content-spacer>
+            <np-paragraph>
+                {{ l10n("doc.text.p1", project_id, page_lang) }}
+            </np-paragraph>
+        </np-content-spacer>
+    </np-section>
+
+    <!-- Usage -->
+    <np-section>
+        {% with heading_inner_html=l10n("usage.title", project_id, page_lang),
+                heading_level=3 %}
+            {% include 'elements/heading.jinja' %}
+        {% endwith %}
+
+        <np-content-spacer>
+            <np-paragraph>
+                {{ l10n("usage.text.p1", project_id, page_lang) }}
+            </np-paragraph>
+
+            <np-paragraph>
+                {{ l10n("usage.text.p2", project_id, page_lang) }}
+            </np-paragraph>
+
+            {% with code_source="cpy-ebyte-e32-en.txt",
+                    code_highlight=true,
+                    code_language="python",
+                    code_copiable=true %}
+                {% include 'elements/code-block.jinja' %}
+            {% endwith %}
+        </np-content-spacer>
+    </np-section>
+
+    <!-- Gallery -->
+    <np-section>
+        {% with heading_inner_html=l10n("demo.title", project_id, page_lang),
+                heading_level=3 %}
+            {% include 'elements/heading.jinja' %}
+        {% endwith %}
+
+        <np-content-spacer>
+            <np-paragraph>
+                {{ l10n("demo.text.p1", project_id, page_lang) }}
+            </np-paragraph>
+
+            <np-paragraph>
+                {{ l10n("demo.text.p3", project_id, page_lang) }}
+            </np-paragraph>
+
+            <np-paragraph>
+                {{ l10n("demo.text.p4", project_id, page_lang) }}
+            </np-paragraph>
+
+            <!--
+            autoscroll=false, modal_zoom=true
+            "/resources/NibblePoker/images/content/circuitpython-ebyte-e32/demo-01.jpg"
+            "/resources/NibblePoker/images/content/circuitpython-ebyte-e32/demo-02.jpg"
+            "/resources/NibblePoker/images/content/circuitpython-ebyte-e32/demo-03.jpg"
+            "/resources/NibblePoker/images/content/circuitpython-ebyte-e32/demo-04.jpg"
+            -->
+        </np-content-spacer>
+    </np-section>
+
+
+
+    <!-- Links -->
+    <np-section>
+        {% with heading_inner_html=l10n("links.title", project_id, page_lang),
+                heading_level=3 %}
+            {% include 'elements/heading.jinja' %}
+        {% endwith %}
+        <np-content-spacer>
+            <np-paragraph>
+                <np-ul>
+                    <li><a href="https://github.com/aziascreations/CircuitPython-Ebyte-E32">{{ l10n("github", "commons", user_lang) }}</a></li>
+                    <li><a href="https://aziascreations.github.io/CircuitPython-Ebyte-E32">{{ l10n("doc.online", "commons", user_lang) }}</a></li>
+                </np-ul>
+            </np-paragraph>
+        </np-content-spacer>
+    </np-section>
+{% endblock %}

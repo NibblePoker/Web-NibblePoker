@@ -1,0 +1,11 @@
+
+pages:
+  - id: project-circuitpython-ebyte-e32
+    output_base_name: "project-circuitpython-ebyte-e32"
+    template_path: "projects/circuitpython-ebyte-e32.jinja"
+    served_paths: ["/content/circuitpython-ebyte-e32/", "/content/circuitpython-ebyte-e32"]
+    canonical_path: "/content/circuitpython-ebyte-e32/"
+    localizable: true
+    standalone: false
+    brandable: false
+    release: false

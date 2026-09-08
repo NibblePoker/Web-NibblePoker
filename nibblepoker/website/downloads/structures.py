@@ -69,6 +69,10 @@ class ReleaseVersionRepository:
         return self.__downloads_data
 
     def get_releases_for(self, product: str) -> Optional[list[ReleaseVersion]]:
+        """
+
+        :rtype: Optional[list[ReleaseVersion]]
+        """
         return self.__downloads_data[product]
 
     def get_latest_releases_for(self, product: str) -> Optional[ReleaseVersion]:

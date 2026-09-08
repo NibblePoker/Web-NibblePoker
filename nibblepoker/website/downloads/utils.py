@@ -8,18 +8,18 @@ from nibblepoker.website.downloads.tags import TAG_GROUPS, ReleaseSortingTag
 @dataclass
 class ReleaseVersionGroup:
     tag: ReleaseSortingTag
-    subs: Optional[list[ReleaseVersionGroup]]
-    values: Optional[list[str]]
+    sub_groups: Optional[list[ReleaseVersionGroup]]
+    artifact_values: Optional[list[str]]
 
     def count_subgroups(self) -> int:
-        if self.subs is not None:
-            return len(self.subs)
-        if self.values is not None:
+        if self.sub_groups is not None:
+            return len(self.sub_groups)
+        if self.artifact_values is not None:
             return 0
         raise Exception("Both subgroups and values are None !")
 
 
-def _make_download_tags_tree(remaining_tags: list[str]) -> list[ReleaseVersionGroup]:
+def _prepare_groups_from_tags(remaining_tags: list[str]) -> list[ReleaseVersionGroup]:
     returned_groups = list()
 
     if remaining_tags[0] not in TAG_GROUPS:
@@ -32,9 +32,9 @@ def _make_download_tags_tree(remaining_tags: list[str]) -> list[ReleaseVersionGr
     # Populating the subs and values
     for returned_group in returned_groups:
         if len(remaining_tags) > 1:
-            returned_group.subs = _make_download_tags_tree(remaining_tags[1:])
+            returned_group.sub_groups = _prepare_groups_from_tags(remaining_tags[1:])
         else:
-            returned_group.values = list()
+            returned_group.artifact_values = list()
 
     return returned_groups
 
@@ -47,10 +47,12 @@ def _add_download_tags_entries(artifacts: list[str], download_groups: list[Relea
     for download_group in download_groups:
         current_tags = parent_tags + [download_group.tag]
 
-        if download_group.subs is not None:
-            _add_download_tags_entries(artifacts, download_group.subs, current_tags)
-        elif download_group.values is not None:
+        if download_group.sub_groups is not None:
+            # Adding sub-tags
+            _add_download_tags_entries(artifacts, download_group.sub_groups, current_tags)
 
+        elif download_group.artifact_values is not None:
+            # Adding entries if they had a match for all tags along the chain
             for artifact in artifacts:
                 had_all_tags = True
 
@@ -60,16 +62,28 @@ def _add_download_tags_entries(artifacts: list[str], download_groups: list[Relea
                         break
 
                 if had_all_tags:
-                    download_group.values.append(artifact)
+                    download_group.artifact_values.append(artifact)
+                    break
         else:
             raise Exception("Both subgroups and values are None !")
 
 
+# FIXME: BROKEN !!!
+def _sort_groups_by_importance(groups: list[ReleaseVersionGroup]) -> None:
+    groups.sort(key=lambda g: g.tag.importance, reverse=True)
+    for group in groups:
+        if group.sub_groups:
+            _sort_groups_by_importance(group.sub_groups)
+
+
 def group_single_release(release_data: ReleaseVersion) -> list[ReleaseVersionGroup]:
     # Preparing the structure
-    groups: list[ReleaseVersionGroup] = _make_download_tags_tree(release_data.columns)
+    groups: list[ReleaseVersionGroup] = _prepare_groups_from_tags(release_data.columns)
 
     # Adding the entries
     _add_download_tags_entries(release_data.artifacts, groups)
+
+    # Sorting based on importance and not desired matching order
+    _sort_groups_by_importance(groups)
 
     return groups
