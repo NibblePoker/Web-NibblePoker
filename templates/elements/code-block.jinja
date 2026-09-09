@@ -8,8 +8,23 @@ Parameters:
     * code_highlight  - Enables code highlighting.
 #}
 
-<code class="d-block p-xxs border r-s mt-s">
+{#
+    Old example:
+        <code class="code ox-auto w-full d-inline-block position-relative content-spacer-vertical language-python">
+#}
+
+{% set _code_dwn_classes = "" %}
+
+{% if code_highlight is defined %}
+    {% set _code_dwn_classes = _code_dwn_classes + " code" %}
+
+    {% if code_language is defined %}
+        {% set _code_dwn_classes = _code_dwn_classes + " language-" + code_language %}
+    {% endif %}
+{% endif %}
+
+<code class="d-block ox-auto p-xxs border r-s mt-s {{ _code_dwn_classes }}">
     {% for code_line in get_code_lines(code_source) %}
-        {{ code_line | replace(" ", "&nbsp;")}}<br/>
+        <span class="code-line t-nowrap">{{ code_line | replace(" ", "&nbsp;")}}</span><br/>
     {% endfor %}
 </code>
