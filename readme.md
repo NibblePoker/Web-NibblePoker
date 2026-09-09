@@ -23,13 +23,7 @@ Public repository containing the source code for [nibblepoker.lu](https://nibble
 ## Local Setup
 
 ### Requirements
-* Windows (x64) or Linux (x64/ARM64)
-* PureBasic 6.21 LTS
-  * *5.xx will not work !*
-* Python 3.13
-  * *Previous versions untested*
-* Node JS 20+
-* Docker *(Optional)*
+TODO
 
 ### Pre-rendering
 1. Install Python Modules \
@@ -42,19 +36,6 @@ Public repository containing the source code for [nibblepoker.lu](https://nibble
    `.\scripts\compile-js-site.cmd`
 5. Pre-render the pages \
    `python prerender.py`
-
-### Docker on Windows
-1. Compile FCGI apps via [Web-NibblePoker.pbp](Web-NibblePoker.pbp)
-2. Setup Apache/Nginx/HAProxy/... to interact with FCGI apps \
-   `./docker/RunDockerStuff.cmd`
-3. Start static page server \
-   `./cgi/RunLocalFcgi.cmd`
-4. Start index page server \
-   `???`
-5. Open "http://localhost:5002/"
-
-### Docker on Linux
-1. Copy over the project on your Linux machine
 
 
 ## Licenses
