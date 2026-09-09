@@ -17,8 +17,8 @@ BROKEN, for some reason...
  #}
 
 {# Actual DOM stuff #}
-{% if release_subgroup.subs is not none %}
-    <td rowspan='{{ release_subgroup.subs | length }}' class='bb-0'>{{
+{% if release_subgroup.sub_groups is not none %}
+    <td rowspan='{{ release_subgroup.sub_groups | length }}' class='bb-0'>{{
         l10n(
             release_subgroup.tag.lang_key,
             release_subgroup.tag.lang_domain,
@@ -26,7 +26,7 @@ BROKEN, for some reason...
         )
     }}</td>
 
-    {% for release_sub_subgroup in release_subgroup.subs %}
+    {% for release_sub_subgroup in release_subgroup.sub_groups %}
         {% with release_data=release_data,
                 release_subgroup=release_sub_subgroup,
                 release_subgroup_is_last=loop.last %}
@@ -36,7 +36,7 @@ BROKEN, for some reason...
 {% endif %}
 
 
-{% if release_subgroup.values is not none %}
+{% if release_subgroup.artifact_values is not none %}
     <td>{{
         l10n(
             release_subgroup.tag.lang_key,
@@ -46,7 +46,7 @@ BROKEN, for some reason...
     }}</td>
 
     <td>
-    {% for release_artifact in release_subgroup.values %}
+    {% for release_artifact in release_subgroup.artifact_values %}
         {{ release_artifact }}<br>
     {% endfor %}
     </td>

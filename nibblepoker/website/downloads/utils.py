@@ -52,8 +52,11 @@ def _add_download_tags_entries(artifacts: list[str], download_groups: list[Relea
             _add_download_tags_entries(artifacts, download_group.sub_groups, current_tags)
 
         elif download_group.artifact_values is not None:
-            # Adding entries if they had a match for all tags along the chain
-            for artifact in artifacts:
+            # Adding every entry that matches all tags along the chain, then
+            # removing it from the shared pool so a broader/catch-all tag
+            # processed later (e.g. "py" matching both minified and regular
+            # builds) doesn't also claim it.
+            for artifact in list(artifacts):
                 had_all_tags = True
 
                 for tag in current_tags:
@@ -63,7 +66,7 @@ def _add_download_tags_entries(artifacts: list[str], download_groups: list[Relea
 
                 if had_all_tags:
                     download_group.artifact_values.append(artifact)
-                    break
+                    artifacts.remove(artifact)
         else:
             raise Exception("Both subgroups and values are None !")
 
@@ -80,8 +83,9 @@ def group_single_release(release_data: ReleaseVersion) -> list[ReleaseVersionGro
     # Preparing the structure
     groups: list[ReleaseVersionGroup] = _prepare_groups_from_tags(release_data.columns)
 
-    # Adding the entries
-    _add_download_tags_entries(release_data.artifacts, groups)
+    # Adding the entries (working on a copy so the release's own artifact
+    # list isn't consumed/mutated in the process)
+    _add_download_tags_entries(list(release_data.artifacts), groups)
 
     # Sorting based on importance and not desired matching order
     _sort_groups_by_importance(groups)

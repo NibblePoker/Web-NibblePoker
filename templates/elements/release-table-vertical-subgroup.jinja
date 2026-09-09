@@ -1,0 +1,56 @@
+{#
+release-table-vertical-subgroup.jinja
+
+Recursively renders one `<tr>` of column headers per tag/category depth level for
+`release-table-vertical.jinja`. Each call handles every sibling node sitting at the
+same depth, then flattens their children into the next call so every level of the
+tag hierarchy gets its own header row (top level first).
+
+Parameters:
+    * header_nodes: list[ReleaseVersionGroup] — every node at the current depth, in order
+    * header_is_first_row: bool — true only for the very first call, to also emit the
+      leading "Version" header cell
+    * header_total_depth: int — total number of tag levels, used for the "Version" rowspan
+#}
+
+{# Returns how many leaf columns sit below a given node, used for its `colspan`. #}
+{% macro leaf_count(group) %}
+    {% if group.sub_groups is not none %}
+        {% set ns = namespace(total=0) %}
+        {% for sub_group in group.sub_groups %}
+            {% set ns.total = ns.total + (leaf_count(sub_group) | trim | int) %}
+        {% endfor %}
+        {{- ns.total -}}
+    {% else %}
+        {{- 1 -}}
+    {% endif %}
+{% endmacro %}
+
+
+{# Actual DOM stuff #}
+<tr>
+    {% if header_is_first_row %}
+        <th rowspan="{{ header_total_depth }}">_Version</th>
+    {% endif %}
+
+    {% for header_node in header_nodes %}
+        <th colspan="{{ leaf_count(header_node) | trim }}">{{
+            l10n(header_node.tag.lang_key, header_node.tag.lang_domain, page_lang)
+        }}</th>
+    {% endfor %}
+</tr>
+
+{% set header_children_ns = namespace(nodes=[]) %}
+{% for header_node in header_nodes %}
+    {% if header_node.sub_groups is not none %}
+        {% set header_children_ns.nodes = header_children_ns.nodes + header_node.sub_groups %}
+    {% endif %}
+{% endfor %}
+
+{% if header_children_ns.nodes | length > 0 %}
+    {% with header_nodes=header_children_ns.nodes,
+            header_is_first_row=false,
+            header_total_depth=header_total_depth %}
+        {% include 'elements/release-table-vertical-subgroup.jinja' %}
+    {% endwith %}
+{% endif %}

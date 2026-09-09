@@ -1,0 +1,79 @@
+{#
+release-table-vertical.jinja
+
+Renders a "vertical" release table: one row per released VERSION, with the
+tag/category values laid out as column headers on top instead of being
+grouped on the side like in `release-table.jinja`.
+
+Parameters:
+    * release_id: str
+
+Important globals:
+    * get_releases_for: (str) -> list[ReleaseVersion]
+    * group_single_release: (ReleaseVersion) -> list[ReleaseVersionGroup]
+
+Important variables:
+    * release_versions: list[ReleaseVersion]
+#}
+
+{# Prep work #}
+{% if release_id is not defined %}
+    {{ raise("Tried to render a vertical release table with a null `release_id` !") }}
+{% endif %}
+
+{% set release_versions = get_releases_for(release_id) %}
+
+{% if release_versions is none or release_versions | length == 0 %}
+    {{ raise("Unable to get any release data for `" + release_id + "` !") }}
+{% endif %}
+
+{# Every version must share the same tag layout, otherwise the header columns   #}
+{# built from `release_versions[0]` wouldn't line up with the other rows' cells. #}
+{% for release_version_entry in release_versions %}
+    {% if release_version_entry.columns != release_versions[0].columns %}
+        {{ raise("All releases of `" + release_id + "` must share the same `columns` to be rendered as a vertical table !") }}
+    {% endif %}
+{% endfor %}
+
+{% set release_header_depth = release_versions[0].columns | length %}
+{% set release_header_groups = group_single_release(release_versions[0]) %}
+
+{# Recursively renders every leaf `<td>` of a single version's row, walking the same
+   depth-first tag order as the header columns built by `release-table-vertical-subgroup.jinja`. #}
+{% macro render_release_row_cells(release_data, release_group) %}
+    {% if release_group.sub_groups is not none %}
+        {% for release_sub_group in release_group.sub_groups %}
+            {{ render_release_row_cells(release_data, release_sub_group) }}
+        {% endfor %}
+    {% else %}
+        <td>
+        {% for release_artifact in release_group.artifact_values %}
+            <a href="{{ release_data.url_prefix }}{{ release_artifact }}">{{ release_artifact }}</a><br>
+        {% endfor %}
+        </td>
+    {% endif %}
+{% endmacro %}
+
+
+{# Actual DOM stuff #}
+<table class="table-stylish table-p-s border r-l">
+    <thead>
+    {% with header_nodes=release_header_groups,
+            header_is_first_row=true,
+            header_total_depth=release_header_depth %}
+        {% include 'elements/release-table-vertical-subgroup.jinja' %}
+    {% endwith %}
+    </thead>
+
+    <tbody>
+    {% for release_data in release_versions %}
+        {% set release_data_groups = group_single_release(release_data) %}
+        <tr>
+            <th>{{ release_data.version }}</th>
+            {% for release_top_group in release_data_groups %}
+                {{ render_release_row_cells(release_data, release_top_group) }}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

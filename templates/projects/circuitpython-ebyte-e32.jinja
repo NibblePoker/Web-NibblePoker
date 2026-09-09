@@ -147,7 +147,16 @@
         </np-content-spacer>
     </np-section>
 
-
+    <!-- Downloads -->
+    <np-section>
+        {% with heading_inner_html=l10n("downloads.title", project_id, page_lang),
+                heading_level=3 %}
+            {% include 'elements/heading.jinja' %}
+        {% endwith %}
+        <np-content-spacer>
+            {% with release_id=project_id %}{% include 'elements/release-table-vertical.jinja' %}{% endwith %}
+        </np-content-spacer>
+    </np-section>
 
     <!-- Links -->
     <np-section>
