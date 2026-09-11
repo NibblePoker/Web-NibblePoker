@@ -1,0 +1,11 @@
+
+pages:
+  - id: tools
+    output_base_name: "tools"
+    template_path: "pages/tools.jinja"
+    served_paths: ["/tools/", "/tools"]
+    canonical_path: "/tools/"
+    localizable: true
+    standalone: false
+    brandable: false
+    release: false

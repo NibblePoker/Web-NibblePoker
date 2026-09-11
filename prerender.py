@@ -22,6 +22,8 @@ from nibblepoker.website.web_brand import WebBrandRepository
 #DOMAINS = [("nibblepoker.lu", "lu",), ("nibblepoker.com", "com",)]
 DOMAINS = [("nibblepoker.lu", "lu",)]
 RENDERS_OUT_DIR = "./static/renders/"
+RENDERS_PROJECT_CARDS_OUT_DIR = "./static/renders/project-cards/"
+RENDERS_TOOLS_CARDS_OUT_DIR = "./static/renders/project-cards/"
 CODE_SNIPPETS_DIR = "./data/code/"
 
 
@@ -82,6 +84,8 @@ if __name__ == "__main__":
     print(f"Clearing '{RENDERS_OUT_DIR}'...")
     shutil.rmtree(RENDERS_OUT_DIR, ignore_errors=True)
     os.makedirs(RENDERS_OUT_DIR, exist_ok=True)
+    os.makedirs(RENDERS_PROJECT_CARDS_OUT_DIR, exist_ok=True)
+    os.makedirs(RENDERS_TOOLS_CARDS_OUT_DIR, exist_ok=True)
 
     # Loading and processing brands
     web_brand_repo = WebBrandRepository()
@@ -103,6 +107,7 @@ if __name__ == "__main__":
     # Loading content definitions
     content_repo = ContentRepository()
     content_repo.load_applets_folder("./data/applets/")
+    content_repo.load_projects_folder("./data/projects/")
     content_repo.load_tools_folder("./data/tools/")
 
     # Loading L10N stuff
@@ -116,7 +121,6 @@ if __name__ == "__main__":
         for release_data in release_repo.get_releases_for(releases_key):
             print(release_data)
             print(group_single_release(release_data))
-
 
 
     def _localize(strings_key: str, strings_domain: Optional[str], language: str, args: list[str] = None) -> str:
@@ -189,6 +193,7 @@ if __name__ == "__main__":
         "raise": _raise,
     }
 
+
     # Rendering static pages
     print("Rendering static pages...")
     for domain in DOMAINS:
@@ -208,6 +213,24 @@ if __name__ == "__main__":
                 context["page_lang"] = lang
                 context["url_lang"] = lang if is_lang_explicit else None
                 context["is_lang_explicit"] = is_lang_explicit
+
+
+                for project_key in content_repo.projects.keys():
+                    print(f"--> {project_key}")
+
+                    context["card_project_id"] = project_key
+
+                    t = jinja_env.get_template("components/content-card.jinja", globals=context)
+                    with open(
+                            os.path.join(
+                                RENDERS_OUT_DIR,
+                                "project-cards",
+                                f"{domain_id}.{project_key}.{"expl" if is_lang_explicit else "impl"}.{lang}.html"),
+                            "w", encoding="utf-8") as f:
+                        f.write(post_process_html(t.render()))
+
+                    context["card_project_id"] = None
+
 
                 for static_page_def in static_page_defs.get_all_page_defs().values():
                     print(f"--> {static_page_def.id}")

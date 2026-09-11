@@ -1,0 +1,11 @@
+
+pages:
+  - id: content
+    output_base_name: "content"
+    template_path: "pages/content.jinja"
+    served_paths: ["/content/", "/content"]
+    canonical_path: "/content/"
+    localizable: true
+    standalone: false
+    brandable: false
+    release: false
