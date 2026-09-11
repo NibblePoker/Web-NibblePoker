@@ -1,0 +1,32 @@
+{#
+components/tool-card.jinja
+
+Parameters:
+    * card_tool_id - ID used to get the relevant tool's info.
+#}
+
+{% set tool_data = tools_index[card_tool_id] %}
+
+<hr class="subtle hide-if-first">
+
+<!--<div class="p-s border r-m">-->
+<div class="p-xs r-m">
+    <a href="{{ url_set_lang('/tools/' + tool_data.id, url_lang) }}" class="a-hidden">
+        <div class="content-search-entry">
+            <img class="content-search-image mr-s r-l"
+                 src="{{ tool_data.metadata.index.image_url }}"
+                 alt="TODO">
+            <h3 class="mb-xs">
+                {{ l10n(tool_data.metadata.index.title_key, tool_data.id, page_lang) }}
+            </h3>
+            <p>{{ l10n(tool_data.metadata.index.preamble_key, tool_data.id, page_lang) }}</p>
+        </div>
+    </a>
+
+    <p class="mt-xs">
+        <i class="fad fa-tags t-size-8"></i>
+        {% for tool_tag in tool_data.metadata.general.tags %}
+            <a href="{{ url_set_lang('/tools/?tags=' + tool_tag, url_lang) }}" class="ml-xs">#{{ tool_tag }}</a>
+        {% endfor %}
+    </p>
+</div>

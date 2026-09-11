@@ -78,3 +78,23 @@ class ContentRepository:
                 _tool = ContentTool(**tool_data)
                 self.tools[_tool.id] = _tool
                 print(_tool)
+
+    def projects_to_ini(self) -> str:
+        ini_data = ""
+        for x in self.projects.values():
+            ini_data += f"[{x.id}]\n"
+            ini_data += f"Id={x.id}\n"
+            ini_data += f"Priority={x.metadata.index.priority}\n"
+            ini_data += f"Tags={"|".join(x.metadata.general.tags)}\n"
+            ini_data += "\n"
+        return ini_data
+
+    def tools_to_ini(self) -> str:
+        ini_data = ""
+        for x in self.tools.values():
+            ini_data += f"[{x.id}]\n"
+            ini_data += f"Id={x.id}\n"
+            ini_data += f"Priority={x.metadata.index.priority}\n"
+            ini_data += f"Tags={"|".join(x.metadata.general.tags)}\n"
+            ini_data += "\n"
+        return ini_data

@@ -23,7 +23,7 @@ from nibblepoker.website.web_brand import WebBrandRepository
 DOMAINS = [("nibblepoker.lu", "lu",)]
 RENDERS_OUT_DIR = "./static/renders/"
 RENDERS_PROJECT_CARDS_OUT_DIR = "./static/renders/project-cards/"
-RENDERS_TOOLS_CARDS_OUT_DIR = "./static/renders/project-cards/"
+RENDERS_TOOLS_CARDS_OUT_DIR = "./static/renders/tool-cards/"
 CODE_SNIPPETS_DIR = "./data/code/"
 
 
@@ -109,6 +109,10 @@ if __name__ == "__main__":
     content_repo.load_applets_folder("./data/applets/")
     content_repo.load_projects_folder("./data/projects/")
     content_repo.load_tools_folder("./data/tools/")
+    with open("./data/projects.ini", "w") as f:
+        f.write(content_repo.projects_to_ini())
+    with open("./data/tools.ini", "w") as f:
+        f.write(content_repo.tools_to_ini())
 
     # Loading L10N stuff
     localizer = load_strings("./data/strings")
@@ -230,6 +234,23 @@ if __name__ == "__main__":
                         f.write(post_process_html(t.render()))
 
                     context["card_project_id"] = None
+
+
+                for tool_key in content_repo.tools.keys():
+                    print(f"--> {tool_key}")
+
+                    context["card_tool_id"] = tool_key
+
+                    t = jinja_env.get_template("components/tool-card.jinja", globals=context)
+                    with open(
+                            os.path.join(
+                                RENDERS_OUT_DIR,
+                                "tool-cards",
+                                f"{domain_id}.{tool_key}.{"expl" if is_lang_explicit else "impl"}.{lang}.html"),
+                            "w", encoding="utf-8") as f:
+                        f.write(post_process_html(t.render()))
+
+                    context["card_tool_id"] = None
 
 
                 for static_page_def in static_page_defs.get_all_page_defs().values():

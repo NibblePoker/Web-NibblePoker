@@ -1,14 +1,32 @@
 {#
-elements/content-card.jinja
+components/content-card.jinja
 
 Parameters:
     * card_project_id - ID used to get the relevant project's info.
 #}
 
+{% set project_data = projects_index[card_project_id] %}
+
 <hr class="subtle hide-if-first">
 
 <!--<div class="p-s border r-m">-->
+<div class="p-xs r-m">
+    <a href="{{ url_set_lang('/content/' + project_data.id, url_lang) }}" class="a-hidden">
+        <div class="content-search-entry">
+            <img class="content-search-image mr-s r-l"
+                 src="{{ project_data.metadata.index.image_url }}"
+                 alt="TODO">
+            <h3 class="mb-xs">
+                {{ l10n(project_data.metadata.index.title_key, project_data.id, page_lang) }}
+            </h3>
+            <p>{{ l10n(project_data.metadata.index.preamble_key, project_data.id, page_lang) }}</p>
+        </div>
+    </a>
 
-<div>
-    Card for '{{ card_project_id }}'
+    <p class="mt-xs">
+        <i class="fad fa-tags t-size-8"></i>
+        {% for project_tag in project_data.metadata.general.tags %}
+            <a href="{{ url_set_lang('/content/?tags=' + project_tag, url_lang) }}" class="ml-xs">#{{ project_tag }}</a>
+        {% endfor %}
+    </p>
 </div>

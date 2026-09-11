@@ -1,0 +1,25 @@
+{% if is_standalone %}
+    {# Should never happen for non-tool pages ! #}
+    {% extends "bases/standalone.jinja" %}
+{% else %}
+    {% extends "bases/default.jinja" %}
+{% endif %}
+
+{% block head_title %}{{ l10n("head.title", "tools", page_lang) }}{% endblock %}
+
+{% block head_description %}
+    <!-- IRRELEVANT, shove it in the opengraph section !!! -->
+    {{ l10n("head.title", "tools", page_lang) }}
+{% endblock %}
+
+{% block opengraph_tags %}
+    <!-- TODO -->
+{% endblock %}
+
+{% block main_content %}
+    <np-tools-index></np-tools-index>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="/resources/NibblePoker/js/nibblepoker-default.min.js"></script>
+{% endblock %}
