@@ -12,6 +12,11 @@
     {{ l10n("head.title", "projects", page_lang) }}
 {% endblock %}
 
+{% block header_title %}
+    <i class="fad fa-briefcase t-size-16 mr-s t-muted"></i>{{ l10n("header.root", "projects", page_lang) }}<span class="mobile-hide">
+    <span class="mx-s t-size-15">❱</span>{{ l10n("header.search", "projects", page_lang) }}</span>
+{% endblock %}
+
 {% block opengraph_tags %}
     <!-- TODO -->
 {% endblock %}

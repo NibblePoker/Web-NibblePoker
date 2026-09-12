@@ -15,7 +15,7 @@
 #-
 
 - title_key: text.projects
-  abs_href: "/content/?tags="
+  abs_href: "/content/"
   icon: fad fa-briefcase
   active_id: projects
   has_new_until_utc: 0

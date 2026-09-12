@@ -8,6 +8,8 @@ Notable globals:
     * projects_index
 #}
 
+{% set project_data=projects_index[project_id] %}
+
 {% if is_standalone %}
     {% extends "bases/standalone.jinja" %}
 {% else %}
@@ -23,6 +25,11 @@ Notable globals:
 
 {% block opengraph_tags %}
     <!-- TODO -->
+{% endblock %}
+
+{% block header_title %}
+    <i class="fad fa-briefcase t-size-16 mr-s t-muted"></i><a href="{{ url_set_lang('/content/', url_lang) }}" class="a-hidden">{{ l10n("header.root", "projects", page_lang) }}</a>
+    <span class="mobile-hide"><span class="mx-s t-size-15">❱</span>{{ l10n(project_data.metadata.general.title_key, project_id, page_lang) }}</span>
 {% endblock %}
 
 {% block main_content %}

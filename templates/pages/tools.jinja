@@ -16,6 +16,11 @@
     <!-- TODO -->
 {% endblock %}
 
+{% block header_title %}
+    <i class="fad fa-toolbox t-size-16 mr-s t-muted"></i>{{ l10n("header.root", "tools", page_lang) }}<span class="mobile-hide">
+    <span class="mx-s t-size-15">❱</span>{{ l10n("header.search", "tools", page_lang) }}</span>
+{% endblock %}
+
 {% block main_content %}
     <np-tools-index></np-tools-index>
 {% endblock %}

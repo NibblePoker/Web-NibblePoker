@@ -1,4 +1,4 @@
-# FR - Projects
+# FR - Tools
 
 head:
   title: "Recherche de contenu - NibblePoker"
@@ -9,6 +9,7 @@ og:
   description: "TODO: description"
 
 header:
-  root: "Projets"
+  root: "Outils"
   search: "Recherche"
   error: "Erreur"
+  single: "Outil"

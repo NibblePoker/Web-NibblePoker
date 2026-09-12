@@ -9,6 +9,8 @@ Notable globals:
     * tools_index
 #}
 
+{% set tool_data=tools_index[tool_id] %}
+
 {% if is_standalone %}
     {% extends "bases/standalone.jinja" %}
 {% else %}
@@ -24,6 +26,18 @@ Notable globals:
 
 {% block opengraph_tags %}
     <!-- TODO -->
+{% endblock %}
+
+{% block header_title %}
+    {% if not is_standalone %}
+        <i class="fad fa-toolbox t-size-16 mr-s t-muted"></i><a href="../" class="a-hidden">{{ l10n("header.root", "tools", page_lang) }}</a>
+        <span class="mobile-hide"><span class="mx-s t-size-15">❱</span>{{ l10n(tool_data.metadata.general.title_key, tool_id, page_lang) }}</span>
+    {% else %}
+        {% if not is_brandless %}
+            <span class="mobile-hide">NibblePoker<span class="mx-s t-size-15">❱</span></span>
+        {% endif %}
+        {{ l10n(tool_data.metadata.general.title_key, tool_id, page_lang) }}
+    {% endif %}
 {% endblock %}
 
 {% block main_content %}
