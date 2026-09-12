@@ -24,6 +24,8 @@ TOOLS_INI_PATH = Path("data/tools.ini")
 TOOL_CARDS_DIR = RENDERS_DIR / "tool-cards"
 TOOLS_INDEX_TAG = "<np-tools-index></np-tools-index>"
 
+ERROR_CODES = [403, 404, 500]
+
 
 def get_user_lang(url_lang: Optional[str], header_langs: Optional[str], simplify_entries: bool = True) -> str:
     if url_lang is not None:
@@ -254,6 +256,40 @@ def serve_page(path: str):
 @app.route("/resources/<path:path>")
 def serve_resource(path: str):
     return send_from_directory(RESOURCES_DIR, path)
+
+
+def get_url_lang_from_path(path: str) -> Optional[str]:
+    normalized = normalize(path)
+    for lang in ALLOWED_LANGS:
+        if normalized == f"/{lang}" or normalized.startswith(f"/{lang}/"):
+            return lang
+    return None
+
+
+def render_error_file(error_code: int, lang: str, explicit: bool) -> Path:
+    expl_impl = "expl" if explicit else "impl"
+    filename = f"{TLD}.error.{error_code}.{expl_impl}.{lang}.html"
+    return RENDERS_DIR / filename
+
+
+def make_error_view(error_code: int):
+    def _view(_e):
+        url_lang = get_url_lang_from_path(request.path)
+        explicit = url_lang is not None
+
+        lang = get_user_lang(url_lang, request.headers.get("Accept-Language"))
+
+        file_path = render_error_file(error_code, lang, explicit)
+        if not file_path.is_file():
+            return "", error_code
+
+        return file_path.read_text(encoding="utf-8"), error_code
+
+    return _view
+
+
+for error_code in ERROR_CODES:
+    app.register_error_handler(error_code, make_error_view(error_code))
 
 
 if __name__ == "__main__":

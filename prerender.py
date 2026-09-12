@@ -25,6 +25,7 @@ RENDERS_OUT_DIR = "./static/renders/"
 RENDERS_PROJECT_CARDS_OUT_DIR = "./static/renders/project-cards/"
 RENDERS_TOOLS_CARDS_OUT_DIR = "./static/renders/tool-cards/"
 CODE_SNIPPETS_DIR = "./data/code/"
+ERROR_CODES = [403, 404, 500]
 
 
 if os.environ.get('NP_HTML_POST_PROCESS', "NONE") == "MINIFY":
@@ -294,6 +295,24 @@ if __name__ == "__main__":
                                     f"{domain_id}.{static_page_def.output_base_name}.{brand.id}.{"expl" if is_lang_explicit else "impl"}.{lang}.html"),
                                 "w", encoding="utf-8") as f:
                             f.write(post_process_html(t.render()))
+
+                for error_code in ERROR_CODES:
+                    print(f"--> error-{error_code}")
+
+                    context["error_code"] = error_code
+                    context["error_key"] = str(error_code)
+                    context["canonical_url"] = f"https://{domain_part}/"
+                    context["absolute_url"] = "/"
+                    context["is_standalone"] = False
+                    context["current_brand"] = None
+
+                    t = jinja_env.get_template("pages/error.jinja", globals=context)
+                    with open(
+                            os.path.join(
+                                RENDERS_OUT_DIR,
+                                f"{domain_id}.error.{error_code}.{"expl" if is_lang_explicit else "impl"}.{lang}.html"),
+                            "w", encoding="utf-8") as f:
+                        f.write(post_process_html(t.render()))
 
     # Done rendering static pages
     pass
